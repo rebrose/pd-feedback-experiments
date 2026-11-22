@@ -4,6 +4,7 @@ on:
     branches: [main]
     paths:
       - 'phone_audio_test/**'
+      - 'rule30_feedback/**'
       - '.github/workflows/publish-mobile.yml'
   workflow_dispatch:
 permissions:
@@ -19,12 +20,18 @@ jobs:
           cp phone_audio_test/droidparty_main.pd dist/PhoneAudioTest/
           cd dist
           zip -r ../PhoneAudioTest.pdz PhoneAudioTest
+      - name: Build Rule 30 feedback archive
+        run: |
+          mkdir -p dist/Rule30Feedback
+          cp rule30_feedback/droidparty_main.pd dist/Rule30Feedback/
+          cd dist
+          zip -r ../Rule30Feedback.pdz Rule30Feedback
       - name: Publish or update release
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           if gh release view mobile-patches >/dev/null 2>&1; then
-            gh release upload mobile-patches PhoneAudioTest.pdz --clobber
+            gh release upload mobile-patches PhoneAudioTest.pdz Rule30Feedback.pdz --clobber
           else
-            gh release create mobile-patches PhoneAudioTest.pdz --title "PdDroidParty mobile patches" --notes "Install these PdDroidParty .pdz packages using the app's Edit links catalogue."
+            gh release create mobile-patches PhoneAudioTest.pdz Rule30Feedback.pdz --title "PdDroidParty mobile patches" --notes "Install these PdDroidParty .pdz packages using the app's Edit links catalogue."
           fi
