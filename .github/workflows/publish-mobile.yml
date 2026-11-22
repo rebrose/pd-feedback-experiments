@@ -1,0 +1,30 @@
+name: Publish PdDroidParty package
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'phone_audio_test/**'
+      - '.github/workflows/publish-mobile.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build PdDroidParty archive
+        run: |
+          mkdir -p dist/PhoneAudioTest
+          cp phone_audio_test/droidparty_main.pd dist/PhoneAudioTest/
+          cd dist
+          zip -r ../PhoneAudioTest.pdz PhoneAudioTest
+      - name: Publish or update release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view mobile-patches >/dev/null 2>&1; then
+            gh release upload mobile-patches PhoneAudioTest.pdz --clobber
+          else
+            gh release create mobile-patches PhoneAudioTest.pdz --title "PdDroidParty mobile patches" --notes "Install these PdDroidParty .pdz packages using the app's Edit links catalogue."
+          fi
