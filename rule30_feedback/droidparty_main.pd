@@ -1,5 +1,5 @@
 #N canvas 40 40 455 1680 10;
-#X obj 12 12 cnv 15 425 38 empty empty RULE30_MODULE_VIEW_V4 12 18 0 16 -233017 -66577 0;
+#X obj 12 12 cnv 15 425 38 empty empty RULE30_MODULE_VIEW_V5 12 18 0 16 -233017 -66577 0;
 #X text 20 70 CONTROL: 16-cell Rule 30 at 7 updates per second;
 #X obj 20 100 tgl 26 0 $0-run empty CA_RUN 35 12 0 12 -262144 -1 -1 0 1;
 #X obj 20 160 hsl 350 22 0 0.35 0 0 $0-inject empty INJECTION_GAIN 4 -10 0 12 -262144 -1 -1 0 1;
@@ -55,6 +55,9 @@
 #X obj 330 1140 pack f 50;
 #X obj 330 1170 line~;
 #X obj 330 1200 *~ 1.57;
+#X obj 380 160 nbx 5 18 0 0.35 0 0 empty $0-inject empty 0 -8 0 10 -262144 -1 -1 0 256;
+#X obj 380 225 nbx 5 18 0 0.15 0 0 empty $0-volume empty 0 -8 0 10 -262144 -1 -1 0 256;
+#X obj 380 265 nbx 5 18 4 20 0 0 empty $0-pitch empty 0 -8 0 10 -262144 -1 -1 4 256;
 #X connect 21 0 22 0;
 #X connect 22 0 23 0;
 #X connect 23 0 24 0;
