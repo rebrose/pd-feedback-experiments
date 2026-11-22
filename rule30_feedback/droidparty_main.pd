@@ -1,5 +1,5 @@
 #N canvas 70 50 470 1030 10;
-#X obj 15 15 cnv 15 410 38 empty empty RULE30_FEEDBACK_V1 12 18 0 16 -233017 -66577 0;
+#X obj 15 15 cnv 15 410 38 empty empty RULE30_FEEDBACK_V2 12 18 0 16 -233017 -66577 0;
 #X obj 35 90 tgl 30 0 empty empty CA_RUN 40 15 0 12 -262144 -1 -1 0 1;
 #X obj 35 165 hsl 340 25 0 0.35 0 0 empty empty INJECTION_GAIN 5 -10 0 12 -262144 -1 -1 0 1;
 #X obj 35 245 hsl 340 25 0 0.15 0 0 empty empty OUTPUT_VOLUME 5 -10 0 12 -262144 -1 -1 0 1;
@@ -10,7 +10,7 @@
 #X obj 35 465 t f f;
 #X obj 35 505 expr ((($i1 & 1) + (($i1 >> 3) & 1)*2 + (($i1 >> 6) & 1)*4 + (($i1 >> 9) & 1)*8 + (($i1 >> 12) & 1)*16 + (($i1 >> 15) & 1)*32)/31.5)-1;
 #X obj 35 545 sig~;
-#X obj 35 580 hip~ 3;
+#X obj 35 580 hip~ 0.2;
 #X obj 190 545 pack f 30;
 #X obj 190 580 line~;
 #X obj 35 620 *~;
@@ -20,13 +20,15 @@
 #X obj 210 730 *~ 0.54;
 #X obj 35 770 +~;
 #X obj 35 810 +~;
-#X obj 35 850 expr~ tanh($v1 * 2);
+#X obj 35 850 clip~ -0.8 0.8;
 #X obj 35 890 hip~ 15;
 #X obj 210 890 delwrite~ $0-loop 1000;
 #X obj 210 245 pack f 30;
 #X obj 210 285 line~;
 #X obj 35 930 *~;
 #X obj 35 970 dac~;
+#X obj 270 930 *~ 0.25;
+#X obj 270 970 +~;
 #X obj 310 345 loadbang;
 #X msg 310 385 1;
 #X connect 1 0 5 0;
@@ -54,7 +56,10 @@
 #X connect 24 0 25 0;
 #X connect 22 0 26 0;
 #X connect 25 0 26 1;
-#X connect 26 0 27 0;
-#X connect 26 0 27 1;
+#X connect 14 0 30 0;
+#X connect 30 0 31 1;
+#X connect 26 0 31 0;
+#X connect 31 0 27 0;
+#X connect 31 0 27 1;
 #X connect 28 0 29 0;
 #X connect 29 0 6 1;
