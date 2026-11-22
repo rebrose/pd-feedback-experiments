@@ -54,12 +54,12 @@
 #X connect 22 0 23 0;
 #X connect 3 0 24 0;
 #X connect 24 0 25 0;
-#X connect 22 0 26 0;
+#X connect 31 0 26 0;
 #X connect 25 0 26 1;
 #X connect 14 0 30 0;
 #X connect 30 0 31 1;
-#X connect 26 0 31 0;
-#X connect 31 0 27 0;
-#X connect 31 0 27 1;
+#X connect 22 0 31 0;
+#X connect 26 0 27 0;
+#X connect 26 0 27 1;
 #X connect 28 0 29 0;
 #X connect 29 0 6 1;
