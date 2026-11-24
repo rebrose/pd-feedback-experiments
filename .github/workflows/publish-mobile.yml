@@ -6,6 +6,7 @@ on:
       - 'phone_audio_test/**'
       - 'rule30_feedback/**'
       - 'feedback_reverb/**'
+      - 'rule30_phase_feedback/**'
       - '.github/workflows/publish-mobile.yml'
   workflow_dispatch:
 permissions:
@@ -33,12 +34,18 @@ jobs:
           cp feedback_reverb/droidparty_main.pd dist/FeedbackReverb/
           cd dist
           zip -r ../FeedbackReverb.pdz FeedbackReverb
+      - name: Build Rule 30 phase feedback archive
+        run: |
+          mkdir -p dist/Rule30PhaseFeedback
+          cp rule30_phase_feedback/droidparty_main.pd dist/Rule30PhaseFeedback/
+          cd dist
+          zip -r ../Rule30PhaseFeedback.pdz Rule30PhaseFeedback
       - name: Publish or update release
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           if gh release view mobile-patches >/dev/null 2>&1; then
-            gh release upload mobile-patches PhoneAudioTest.pdz Rule30Feedback.pdz FeedbackReverb.pdz --clobber
+            gh release upload mobile-patches PhoneAudioTest.pdz Rule30Feedback.pdz FeedbackReverb.pdz Rule30PhaseFeedback.pdz --clobber
           else
-            gh release create mobile-patches PhoneAudioTest.pdz Rule30Feedback.pdz FeedbackReverb.pdz --title "PdDroidParty mobile patches" --notes "Install these PdDroidParty .pdz packages using the app's Edit links catalogue."
+            gh release create mobile-patches PhoneAudioTest.pdz Rule30Feedback.pdz FeedbackReverb.pdz Rule30PhaseFeedback.pdz --title "PdDroidParty mobile patches" --notes "Install these PdDroidParty .pdz packages using the app's Edit links catalogue."
           fi
