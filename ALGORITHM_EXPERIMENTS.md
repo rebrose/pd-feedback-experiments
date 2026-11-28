@@ -1,0 +1,3 @@
+# Algorithm feedback prototypes
+
+18 independent Pd patches. Common topology: oscillator phase plus delayed filtered cosine return plus algorithm output; sampled audio return perturbs algorithm state. Coupling zero removes both directions. Controls: pitch, feedback cycles, coupling, step interval, delay, volume. Start at low monitor volume. Reload to reset. These are finite, reduced models (16-cell CA, 4x4 Life and ant, four-site Bak–Sneppen with deterministic pseudo-random replacements, four-site Gray–Scott ring, 12-state Mackey–Glass delay approximation). No runtime or sonic validation yet. Compare zero coupling with nonzero coupling at fixed settings. Do not infer chaos or multistability from listening alone.
